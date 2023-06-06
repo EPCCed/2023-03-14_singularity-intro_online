@@ -91,10 +91,13 @@ Host system:                                                      Singularity co
 
 You will sometimes need to bind additional host system directories into a container you are using over and above those bound by default. For example:
 
-- There may be a shared dataset in a shard location that you need access to in the container
+- There may be a shared dataset in a shared location that you need access to in the container
 - You may require executables and software libraries in the container
 
-The `-B` option to the `singularity` command is used to specify additonal binds. For example, to bind the `/work/z19/shared` directory into a container you could use (note this directory is unlikely to exist on the host system you are using so you'll need to test this using a different directory):
+The `-B` option to the `singularity` command is used to specify additonal
+binds. For example, to bind the `/work/z19/shared` directory into a container
+you could use (_this directory won't exist on the host system you
+are using so you'll need to test this using a different directory_):
 
 ```
 $ singularity shell -B /work/z19/shared hello-world.sif
@@ -128,7 +131,7 @@ cdo-archer2.sif     edge768x768.pgm  image192x128.pgm	   jsindt			paraver		    p
 ```
 {: .output}
 
-You can also specify multiple binds to `-B` by separating them by commas (`,`).
+You can specify multiple binds to `-B` by separating them by commas (`,`).
 
 You can also copy data into a container image at build time if there is some static data required in the image. We cover this later in the section on building Singularity containers.
 
