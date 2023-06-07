@@ -99,19 +99,41 @@ This section is used to define a script that should be run when a container is s
 
 We can now save the contents of the simple defintion file shown above to a file and build an image based on it. In the case of this example, the definition file has been named `my_test_image.def`. (Note that the instructions here assume you've bound the image output directory you created to the `/home/singularity` directory in your Docker Singularity container, as explained in the "[_Getting started with the Docker Singularity image_](#getting-started-with-the-docker-singularity-image)" section above.):
 
-~~~
-$ singularity build /home/singularity/my_test_image.sif /home/singularity/my_test_image.def
-~~~
-{: .language-bash}
+> ## For users working in an unprivileged environment with `--fakeroot`
+> If you're able to use the `--fakeroot`  option, use the following command to
+> build your image:
+> ~~~
+> $ singularity build --fakeroot ./my_test_image.sif ./my_test_image.def
+> ~~~
+> {: .language-bash}
+{: .callout}
 
-Recall from the details at the start of this section that if you are running your command from the host system command line, running an instance of a Docker container for each run of the command, your command will look something like this:
+> ## For users working with the Docker Singularity container
+> ~~~
+> $ singularity build /home/singularity/my_test_image.sif /home/singularity/my_test_image.def
+> ~~~
+> {: .language-bash}
+> 
+> Recall from the details at the start of this section that if you are running
+> your command from the host system command line, running an instance of a
+> Docker container for each run of the command, your command will look
+> something like this: 
+> 
+> ~~~
+> $ docker run --privileged --rm -v ${PWD}:/home/singularity quay.io/singularity/singularity:v3.5.3-slim build /home/singularity/my_test_image.sif /home/singularity/my_test_image.def
+> ~~~
+> {: .language-bash}
+> 
+> Note that you will need to prefix the command with
+> `sudo` if you're running a locally installed version of Singularity and not
+> running via Docker because it is necessary to have administrative privileges
+> to build the image. You should see output similar to the following:
+{: .callout}
 
-~~~
-$ docker run --privileged --rm -v ${PWD}:/home/singularity quay.io/singularity/singularity:v3.5.3-slim build /home/singularity/my_test_image.sif /home/singularity/my_test_image.def
-~~~
-{: .language-bash}
+The above command requests the building of an image based on the
+`my_test_image.def` file with the resulting image saved to  the
+`my_test_image.sif` file.
 
-The above command requests the building of an image based on the `my_test_image.def` file with the resulting image saved to the `my_test_image.sif` file. Note that you will need to prefix the command with `sudo` if you're running a locally installed version of Singularity and not running via Docker because it is necessary to have administrative privileges to build the image. You should see output similar to the following:
 
 ~~~
 INFO:    Starting build...
